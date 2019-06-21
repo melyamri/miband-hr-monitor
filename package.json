@@ -1,22 +1,24 @@
 {
-  "name": "electron-quick-start",
+  "name": "hr-monitor",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "heart rate",
+    "heart rate monitor",
+    "pulse"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^5.0.4"
+    "electron": "^5.0.4",
+    "electron-builder": "^20.44.4"
+  },
+  "dependencies": {
+    "miband": "^0.1.4"
   }
 }

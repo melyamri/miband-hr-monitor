@@ -9,8 +9,9 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 300,
+    height: 300,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -18,18 +19,6 @@ function createWindow () {
     }
   })
 
-  mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {
-    console.log("hey")
-    event.preventDefault()
-    let result = deviceList.find((device) => {
-      return device.deviceName === 'Mi Band 2'
-    })
-    if (!result) {
-      callback('')
-    } else {
-      callback(result.deviceId)
-    }
-  })
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 

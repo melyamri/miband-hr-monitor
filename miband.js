@@ -1,7 +1,9 @@
 const MiBand = require('miband');
 const bluetooth = navigator.bluetooth;
 
+let bpm = 0
 let HRValues = []
+let miband;
 
 async function initHRMonitor(){
 
@@ -17,23 +19,18 @@ async function initHRMonitor(){
     });
     const server = await device.gatt.connect();
 
-    let miband = new MiBand(server);
+    miband = new MiBand(server);
     await miband.init();
 
     console.log('Heart Rate Monitor (continuous for 30 sec)...')
     miband.on('heart_rate', (rate) => {
       console.log('Heart Rate:', rate)
-      updateHRValue(rate)
       HRValues.push(rate)
-
+      bpm = rate
     })
 
 
     await miband.hrmStart();
-    // await delay(30000);
-    // await miband.hrmStop();
-
-
 
   } catch(error) {
     console.log('Error', error);
@@ -41,7 +38,17 @@ async function initHRMonitor(){
 
 }
 
-async function monitorHR(){
+async function stopHRMonitor(){
+
+  try {
+    console.log('Stopping HR')
+    await miband.hrmStop();
+    bpm = 0
+
+
+  } catch(error) {
+    console.log('Error', error);
+  }
 
 }
 

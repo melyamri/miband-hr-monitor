@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const electron = require('electron')
+const {app, BrowserWindow} = electron
 const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -7,11 +8,20 @@ const path = require('path')
 let mainWindow
 
 function createWindow () {
+
+  let displays = electron.screen.getAllDisplays()
+  let width = 0;
+  for(var i in displays){
+    width += displays[i].bounds.width;
+  }
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 300,
     height: 300,
     frame: false,
+    alwaysOnTop: true,
+    x: width,
+    y: 0,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
